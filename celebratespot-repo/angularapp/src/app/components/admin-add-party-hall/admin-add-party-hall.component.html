@@ -1,0 +1,80 @@
+<div class="page-wrapper">
+  <div class="page-hero">
+    <h1 class="section-title">Add Party Hall</h1>
+    <div class="gold-divider" style="margin: 0.75rem auto 0;"></div>
+    <p class="section-subtitle" style="margin-top:0.5rem">Add a new venue to the CelebrateSpot platform</p>
+  </div>
+
+  <div class="container">
+    <div class="form-card animate-fadeInUp">
+      <div class="alert alert-error" *ngIf="errorMsg"><i class="fas fa-exclamation-circle"></i> {{ errorMsg }}</div>
+      <div class="alert alert-success" *ngIf="successMsg"><i class="fas fa-check-circle"></i> {{ successMsg }}</div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Hall Name *</label>
+          <input type="text" class="form-control" [(ngModel)]="hall.hallName" placeholder="e.g., Grand Ballroom">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Location *</label>
+          <input type="text" class="form-control" [(ngModel)]="hall.hallLocation" placeholder="e.g., Bandra, Mumbai">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Price per Day (₹) *</label>
+          <input type="number" class="form-control" [(ngModel)]="hall.price" placeholder="50000" min="0">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Capacity (persons) *</label>
+          <input type="number" class="form-control" [(ngModel)]="hall.capacity" placeholder="200" min="1">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Availability Status *</label>
+          <select class="form-control" [(ngModel)]="hall.hallAvailableStatus">
+            <option value="Available">Available</option>
+            <option value="Not Available">Not Available</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Theme</label>
+          <select class="form-control" [(ngModel)]="hall.theme">
+            <option value="">Select Theme</option>
+            <option *ngFor="let t of themes" [value]="t">{{ t }}</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Main Image URL</label>
+          <input type="url" class="form-control" [(ngModel)]="hall.hallImageUrl" placeholder="https://example.com/image.jpg">
+          <div class="image-preview" *ngIf="hall.hallImageUrl">
+            <img [src]="hall.hallImageUrl" alt="Preview" onerror="this.style.display='none'">
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Additional Image URLs (one per line)</label>
+          <textarea class="form-control" [(ngModel)]="additionalImagesInput" placeholder="https://example.com/img2.jpg&#10;https://example.com/img3.jpg" rows="3"></textarea>
+        </div>
+
+        <div class="form-group full-width">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" [(ngModel)]="hall.description" placeholder="Describe the party hall, facilities, special features..." rows="4"></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-outline-gold" (click)="resetForm()">
+          <i class="fas fa-redo"></i> Reset
+        </button>
+        <button class="btn-gold" (click)="onSubmit()" [disabled]="isLoading">
+          <span *ngIf="!isLoading"><i class="fas fa-plus-circle"></i> Add Party Hall</span>
+          <span *ngIf="isLoading"><span class="spinner-sm"></span> Adding...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

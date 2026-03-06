@@ -1,0 +1,105 @@
+<div class="register-page">
+  <div class="particles">
+    <div class="particle" *ngFor="let p of [1,2,3,4,5,6,7,8]" [style.animation-delay]="(p * 0.4) + 's'"></div>
+  </div>
+
+  <div class="register-container animate-fadeInUp">
+    <div class="register-header">
+      <a routerLink="/login" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+      <div class="logo">
+        <span class="logo-emoji">🎉</span>
+        <h1>CelebrateSpot</h1>
+      </div>
+      <h2>Create Account</h2>
+      <p>Join thousands of happy customers</p>
+    </div>
+
+    <div class="alert alert-error" *ngIf="errorMsg">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMsg }}
+    </div>
+    <div class="alert alert-success" *ngIf="successMsg">
+      <i class="fas fa-check-circle"></i> {{ successMsg }}
+    </div>
+
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Username *</label>
+        <div class="input-wrapper">
+          <i class="fas fa-user input-icon"></i>
+          <input type="text" class="form-control" [(ngModel)]="user.username" placeholder="John Doe" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address *</label>
+        <div class="input-wrapper">
+          <i class="fas fa-envelope input-icon"></i>
+          <input type="email" class="form-control" [(ngModel)]="user.email" placeholder="your@email.com" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password *</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock input-icon"></i>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="user.password" placeholder="Min. 6 characters" required>
+          <button class="toggle-password" (click)="showPassword = !showPassword" type="button">
+            <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Confirm Password *</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock input-icon"></i>
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="confirmPassword" placeholder="Re-enter password" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Mobile Number *</label>
+        <div class="input-wrapper">
+          <i class="fas fa-phone input-icon"></i>
+          <input type="tel" class="form-control" [(ngModel)]="user.mobileNumber" placeholder="10-digit number" maxlength="10" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Account Type *</label>
+        <div class="input-wrapper">
+          <i class="fas fa-user-tag input-icon"></i>
+          <select class="form-control" [(ngModel)]="user.userRole">
+            <option value="Customer">Customer</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin key field -->
+    <div class="form-group admin-key-field" *ngIf="user.userRole === 'Admin'">
+      <label class="form-label">
+        <i class="fas fa-key"></i> Admin Secret Key *
+        <span class="hint-badge">Required for Admin registration</span>
+      </label>
+      <div class="input-wrapper">
+        <i class="fas fa-shield-alt input-icon"></i>
+        <input type="password" class="form-control" [(ngModel)]="adminKey" placeholder="Enter admin secret key" required>
+      </div>
+      <p class="admin-hint">
+        <i class="fas fa-info-circle"></i>
+        Admin key is provided by the system administrator. Default: <code>ADMIN_SECRET_2024</code>
+      </p>
+    </div>
+
+    <button class="btn-gold register-btn" (click)="onRegister()" [disabled]="isLoading">
+      <span *ngIf="!isLoading">Create Account <i class="fas fa-arrow-right"></i></span>
+      <span *ngIf="isLoading"><span class="spinner-sm"></span> Creating account...</span>
+    </button>
+
+    <div class="login-link">
+      Already have an account? <a routerLink="/login">Sign In</a>
+    </div>
+  </div>
+</div>

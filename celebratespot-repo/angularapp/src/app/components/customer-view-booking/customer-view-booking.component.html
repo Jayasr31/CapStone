@@ -1,0 +1,84 @@
+<div class="page-wrapper">
+  <div class="page-hero">
+    <h1 class="section-title">My Bookings</h1>
+    <div class="gold-divider" style="margin: 0.75rem auto 0;"></div>
+    <p class="section-subtitle" style="margin-top:0.5rem">Track and manage your party hall bookings</p>
+  </div>
+
+  <div class="container" style="padding-bottom: 4rem;">
+    <div class="alert alert-success" *ngIf="successMsg"><i class="fas fa-check-circle"></i> {{ successMsg }}</div>
+    <div class="alert alert-error" *ngIf="errorMsg"><i class="fas fa-exclamation-circle"></i> {{ errorMsg }}</div>
+
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading your bookings...</p>
+    </div>
+
+    <div class="bookings-grid" *ngIf="!isLoading">
+      <div class="booking-card animate-fadeInUp" *ngFor="let booking of bookings; let i = index" [style.animation-delay]="(i * 0.1) + 's'">
+        <div class="booking-header">
+          <div class="hall-info">
+            <div class="hall-icon">🏛️</div>
+            <div>
+              <h3>{{ booking.partyHall?.hallName || 'Party Hall' }}</h3>
+              <p>{{ booking.partyHall?.hallLocation || '' }}</p>
+            </div>
+          </div>
+          <span class="badge" [class]="getStatusClass(booking.status)">{{ booking.status }}</span>
+        </div>
+
+        <div class="booking-details">
+          <div class="detail-row">
+            <span class="detail-label"><i class="fas fa-calendar-alt"></i> Check-in</span>
+            <span class="detail-value">{{ booking.fromDate | date:'dd MMM yyyy' }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label"><i class="fas fa-calendar-check"></i> Check-out</span>
+            <span class="detail-value">{{ booking.toDate | date:'dd MMM yyyy' }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label"><i class="fas fa-users"></i> Guests</span>
+            <span class="detail-value">{{ booking.noOfPersons }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label"><i class="fas fa-map-marker-alt"></i> Address</span>
+            <span class="detail-value">{{ booking.address }}</span>
+          </div>
+        </div>
+
+        <div class="booking-footer">
+          <div class="total-price">
+            <span>Total</span>
+            <strong>₹{{ booking.totalPrice | number }}</strong>
+          </div>
+          <button
+            class="btn-danger cancel-btn"
+            (click)="confirmDelete(booking.bookingId!)"
+            *ngIf="booking.status === 'Pending'">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="!isLoading && bookings.length === 0">
+      <div class="empty-icon">📋</div>
+      <h3>No bookings yet</h3>
+      <p>Browse party halls and book your first event!</p>
+      <a class="btn-gold" routerLink="/customer/halls" style="display:inline-block; margin-top:1rem">Explore Halls</a>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div class="modal-backdrop" *ngIf="showDeleteConfirm">
+    <div class="modal-box" style="max-width:400px; text-align:center;">
+      <div style="font-size:3rem; margin-bottom:1rem;">❌</div>
+      <h3 style="font-family: 'Playfair Display', serif; color: #F0E8D5; margin-bottom:0.5rem;">Cancel Booking?</h3>
+      <p style="color: #B8A98C; margin-bottom: 2rem;">Are you sure you want to cancel this booking? This action cannot be undone.</p>
+      <div style="display:flex; gap:1rem; justify-content:center;">
+        <button class="btn-outline-gold" (click)="cancelDelete()">Keep Booking</button>
+        <button class="btn-danger" (click)="doDelete()">Yes, Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

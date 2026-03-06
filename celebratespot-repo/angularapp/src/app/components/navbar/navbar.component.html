@@ -1,0 +1,73 @@
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="nav-container">
+    <!-- Logo -->
+    <a class="nav-brand" [routerLink]="authService.isLoggedIn() ? (authService.getUserRole() === 'Admin' ? '/admin-dashboard' : '/customer-dashboard') : '/login'">
+      <div class="brand-icon">🎉</div>
+      <div class="brand-text">
+        <span class="brand-name">Celebrate</span><span class="brand-accent">Spot</span>
+      </div>
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="nav-links" [class.mobile-open]="showMobileMenu">
+      <a class="nav-link" routerLink="/home" routerLinkActive="active" *ngIf="authService.isLoggedIn()">Home</a>
+
+      <!-- Admin Links -->
+      <ng-container *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Admin'">
+        <div class="nav-dropdown" (mouseenter)="showHallMenu=true" (mouseleave)="showHallMenu=false">
+          <a class="nav-link">Halls <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu" [class.show]="showHallMenu">
+            <a class="dropdown-item" routerLink="/admin/add-party-hall">
+              <i class="fas fa-plus-circle"></i> Add Party Hall
+            </a>
+            <a class="dropdown-item" routerLink="/admin/view-party-hall">
+              <i class="fas fa-th-large"></i> View Party Halls
+            </a>
+          </div>
+        </div>
+        <a class="nav-link" routerLink="/admin/view-booking" routerLinkActive="active">Bookings</a>
+        <a class="nav-link" routerLink="/admin/reviews" routerLinkActive="active">Reviews</a>
+      </ng-container>
+
+      <!-- Customer Links -->
+      <ng-container *ngIf="authService.isLoggedIn() && authService.getUserRole() === 'Customer'">
+        <a class="nav-link" routerLink="/customer/halls" routerLinkActive="active">
+          <i class="fas fa-building"></i> Party Halls
+        </a>
+        <a class="nav-link" routerLink="/customer/bookings" routerLinkActive="active">
+          <i class="fas fa-calendar-check"></i> My Bookings
+        </a>
+        <a class="nav-link" routerLink="/customer/reviews" routerLinkActive="active">
+          <i class="fas fa-star"></i> Reviews
+        </a>
+      </ng-container>
+
+      <a class="nav-link" routerLink="/developer" routerLinkActive="active">
+        <i class="fas fa-code"></i> Developers
+      </a>
+
+      <!-- Auth buttons -->
+      <ng-container *ngIf="!authService.isLoggedIn()">
+        <a class="nav-link" routerLink="/login">Login</a>
+        <a class="btn-gold nav-btn" routerLink="/register">Register</a>
+      </ng-container>
+
+      <ng-container *ngIf="authService.isLoggedIn()">
+        <div class="nav-user">
+          <div class="user-avatar">{{ authService.getUsername().charAt(0).toUpperCase() }}</div>
+          <span class="user-name">{{ authService.getUsername() }}</span>
+        </div>
+        <button class="btn-outline-gold nav-btn" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </ng-container>
+    </div>
+
+    <!-- Mobile Toggle -->
+    <button class="mobile-toggle" (click)="toggleMobileMenu()">
+      <span [class.open]="showMobileMenu"></span>
+      <span [class.open]="showMobileMenu"></span>
+      <span [class.open]="showMobileMenu"></span>
+    </button>
+  </div>
+</nav>

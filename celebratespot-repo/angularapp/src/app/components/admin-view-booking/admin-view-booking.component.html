@@ -1,0 +1,75 @@
+<div class="page-wrapper">
+  <div class="page-hero">
+    <h1 class="section-title">Manage Bookings</h1>
+    <div class="gold-divider" style="margin: 0.75rem auto 0;"></div>
+    <p class="section-subtitle" style="margin-top:0.5rem">View and update all customer bookings</p>
+  </div>
+
+  <div class="container" style="padding-bottom: 4rem;">
+    <div class="alert alert-success" *ngIf="successMsg"><i class="fas fa-check-circle"></i> {{ successMsg }}</div>
+    <div class="alert alert-error" *ngIf="errorMsg"><i class="fas fa-exclamation-circle"></i> {{ errorMsg }}</div>
+
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading bookings...</p>
+    </div>
+
+    <div class="stats-row" *ngIf="!isLoading">
+      <div class="stat-pill">Total: <strong>{{ bookings.length }}</strong></div>
+      <div class="stat-pill confirmed">Confirmed: <strong>{{ bookings | statusCount:'Confirmed' }}</strong></div>
+      <div class="stat-pill pending">Pending: <strong>{{ bookings | statusCount:'Pending' }}</strong></div>
+      <div class="stat-pill cancelled">Cancelled: <strong>{{ bookings | statusCount:'Cancelled' }}</strong></div>
+    </div>
+
+    <div class="table-wrapper" *ngIf="!isLoading">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Customer</th>
+            <th>Hall</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Persons</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Update Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of bookings; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <div class="customer-cell">
+                <div class="c-avatar">{{ (booking.user?.username || 'U').charAt(0) }}</div>
+                <div>
+                  <div class="c-name">{{ booking.user?.username || 'N/A' }}</div>
+                  <div class="c-email">{{ booking.user?.email || '' }}</div>
+                </div>
+              </div>
+            </td>
+            <td>{{ booking.partyHall?.hallName || 'N/A' }}</td>
+            <td>{{ booking.fromDate | date:'dd MMM yyyy' }}</td>
+            <td>{{ booking.toDate | date:'dd MMM yyyy' }}</td>
+            <td>{{ booking.noOfPersons }}</td>
+            <td class="price-cell">₹{{ booking.totalPrice | number }}</td>
+            <td>
+              <span class="badge" [class]="getStatusClass(booking.status)">{{ booking.status }}</span>
+            </td>
+            <td>
+              <select class="status-select" [value]="booking.status" (change)="updateStatus(booking, $any($event.target).value)">
+                <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="empty-state" *ngIf="bookings.length === 0">
+        <div class="empty-icon">📋</div>
+        <h3>No bookings yet</h3>
+        <p>Customer bookings will appear here</p>
+      </div>
+    </div>
+  </div>
+</div>

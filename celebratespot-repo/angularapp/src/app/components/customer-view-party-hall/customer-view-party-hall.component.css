@@ -1,0 +1,268 @@
+.page-hero {
+  text-align: center;
+  padding: 6rem 1.5rem 3rem;
+  background: linear-gradient(135deg, rgba(212,175,55,0.05), transparent);
+  border-bottom: 1px solid rgba(212,175,55,0.1);
+}
+
+.filters-bar {
+  background: rgba(26,34,53,0.7);
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0 1rem;
+  backdrop-filter: blur(10px);
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.search-box i { color: #D4AF37; }
+.search-box input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #F0E8D5;
+  font-size: 0.95rem;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.search-box input::placeholder { color: #7A6E5F; }
+
+.filter-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #B8A98C;
+  font-size: 0.85rem;
+}
+.filter-item input[type="range"] {
+  accent-color: #D4AF37;
+  width: 100px;
+}
+.filter-item span { color: #D4AF37; font-weight: 600; min-width: 80px; }
+
+.filter-input {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  color: #F0E8D5;
+  font-size: 0.875rem;
+  width: 90px;
+  outline: none;
+}
+
+.filter-select {
+  background: rgba(26,34,53,0.9);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.875rem;
+  color: #F0E8D5;
+  font-size: 0.875rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.results-count {
+  color: #7A6E5F;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+.results-count strong { color: #D4AF37; }
+
+/* Loading */
+.loading-state {
+  text-align: center;
+  padding: 5rem 0;
+  color: #7A6E5F;
+}
+.loading-state p { margin-top: 1rem; }
+
+.empty-state {
+  text-align: center;
+  padding: 5rem 0;
+}
+.empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+.empty-state h3 { font-family: 'Playfair Display', serif; color: #F0E8D5; margin-bottom: 0.5rem; }
+.empty-state p { color: #7A6E5F; }
+
+/* Halls grid */
+.halls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding-bottom: 4rem;
+}
+
+.hall-card {
+  background: #1A2235;
+  border: 1px solid rgba(212,175,55,0.12);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+.hall-card:hover {
+  border-color: rgba(212,175,55,0.4);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(212,175,55,0.08);
+}
+
+.hall-image-wrapper {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+.hall-image-wrapper img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.hall-card:hover .hall-image-wrapper img { transform: scale(1.06); }
+
+.hall-badges {
+  position: absolute;
+  top: 0.875rem; left: 0.875rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.badge-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(239,68,68,0.2);
+  color: #FCA5A5;
+  border: 1px solid rgba(239,68,68,0.3);
+  backdrop-filter: blur(4px);
+}
+.badge-status.available {
+  background: rgba(34,197,94,0.2);
+  color: #86EFAC;
+  border-color: rgba(34,197,94,0.3);
+}
+.badge-theme {
+  padding: 0.25rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: rgba(212,175,55,0.2);
+  color: #F5E8A0;
+  border: 1px solid rgba(212,175,55,0.3);
+  backdrop-filter: blur(4px);
+}
+
+.hall-body { padding: 1.25rem; }
+.hall-name {
+  font-family: 'Playfair Display', serif;
+  color: #F0E8D5;
+  font-size: 1.15rem;
+  margin-bottom: 0.625rem;
+}
+
+.hall-details { display: flex; gap: 1rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #7A6E5F;
+  font-size: 0.85rem;
+}
+.detail-item i { color: #D4AF37; font-size: 0.8rem; }
+
+.hall-description {
+  color: #B8A98C;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hall-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.price-label { display: block; color: #7A6E5F; font-size: 0.75rem; }
+.price-value { color: #D4AF37; font-size: 1.3rem; font-weight: 700; }
+.price-period { color: #7A6E5F; font-size: 0.8rem; }
+
+.book-btn {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.book-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Booking Modal */
+.booking-modal { max-width: 560px; }
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.modal-header h3 { font-family: 'Playfair Display', serif; color: #F0E8D5; font-size: 1.25rem; }
+.modal-header p { color: #7A6E5F; font-size: 0.875rem; margin-top: 0.2rem; }
+
+.close-btn {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(212,175,55,0.1);
+  border-radius: 8px;
+  width: 36px; height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7A6E5F;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.close-btn:hover { color: #D4AF37; border-color: rgba(212,175,55,0.3); }
+
+.modal-body { display: flex; flex-direction: column; gap: 0; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.price-display {
+  background: rgba(212,175,55,0.1);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 10px;
+  padding: 0.875rem 1.25rem;
+  color: #D4AF37;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+@media (max-width: 1024px) { .halls-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+  .halls-grid { grid-template-columns: 1fr; }
+  .filter-controls { flex-direction: column; align-items: flex-start; }
+  .form-row { grid-template-columns: 1fr; }
+}

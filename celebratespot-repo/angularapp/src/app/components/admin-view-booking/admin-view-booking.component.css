@@ -1,0 +1,64 @@
+.page-hero {
+  text-align: center;
+  padding: 6rem 1.5rem 3rem;
+  background: linear-gradient(135deg, rgba(212,175,55,0.05), transparent);
+  border-bottom: 1px solid rgba(212,175,55,0.1);
+}
+
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+.stat-pill {
+  background: rgba(26,34,53,0.7);
+  border: 1px solid rgba(212,175,55,0.1);
+  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  font-size: 0.875rem;
+  color: #B8A98C;
+}
+.stat-pill strong { color: #F0E8D5; }
+.stat-pill.confirmed strong { color: #86EFAC; }
+.stat-pill.pending strong { color: #FCD34D; }
+.stat-pill.cancelled strong { color: #FCA5A5; }
+
+.customer-cell { display: flex; align-items: center; gap: 0.75rem; }
+.c-avatar {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, #D4AF37, #A38728);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0A0E1A;
+  flex-shrink: 0;
+}
+.c-name { color: #F0E8D5; font-size: 0.875rem; font-weight: 500; }
+.c-email { color: #7A6E5F; font-size: 0.75rem; }
+
+.price-cell { color: #D4AF37; font-weight: 600; }
+
+.status-select {
+  background: rgba(26,34,53,0.9);
+  border: 1px solid rgba(212,175,55,0.2);
+  border-radius: 8px;
+  padding: 0.35rem 0.625rem;
+  color: #F0E8D5;
+  font-size: 0.8rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 4rem;
+  color: #7A6E5F;
+}
+.loading-state p { margin-top: 1rem; }
+
+.empty-state { text-align: center; padding: 4rem; }
+.empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+.empty-state h3 { font-family: 'Playfair Display', serif; color: #F0E8D5; margin-bottom: 0.5rem; }
+.empty-state p { color: #7A6E5F; }

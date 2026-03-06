@@ -1,0 +1,156 @@
+<div class="page-wrapper">
+  <div class="page-hero">
+    <h1 class="section-title">Party Halls</h1>
+    <div class="gold-divider" style="margin: 0.75rem auto 0;"></div>
+    <p class="section-subtitle" style="margin-top:0.5rem">Find and book your perfect celebration venue</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="container">
+    <div class="filters-bar">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search halls by name or location..." [(ngModel)]="searchQuery" (input)="applyFilters()">
+      </div>
+      <div class="filter-controls">
+        <div class="filter-item">
+          <label>Max Price (₹)</label>
+          <input type="range" min="5000" max="200000" step="5000" [(ngModel)]="maxPrice" (input)="applyFilters()">
+          <span>₹{{ maxPrice | number }}</span>
+        </div>
+        <div class="filter-item">
+          <label>Min Capacity</label>
+          <input type="number" class="filter-input" [(ngModel)]="minCapacity" (input)="applyFilters()" placeholder="0">
+        </div>
+        <select class="filter-select" [(ngModel)]="filterStatus" (change)="applyFilters()">
+          <option value="">All Status</option>
+          <option value="Available">Available</option>
+          <option value="Not Available">Not Available</option>
+        </select>
+        <select class="filter-select" [(ngModel)]="filterTheme" (change)="applyFilters()">
+          <option value="">All Themes</option>
+          <option value="Royal">Royal</option>
+          <option value="Modern">Modern</option>
+          <option value="Garden">Garden</option>
+          <option value="Classic">Classic</option>
+          <option value="Luxury">Luxury</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="results-count" *ngIf="!isLoading">
+      <span>Showing <strong>{{ filteredHalls.length }}</strong> of {{ halls.length }} halls</span>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading party halls...</p>
+    </div>
+
+    <!-- Empty state -->
+    <div class="empty-state" *ngIf="!isLoading && filteredHalls.length === 0">
+      <div class="empty-icon">🏛️</div>
+      <h3>No halls found</h3>
+      <p>Try adjusting your filters</p>
+    </div>
+
+    <!-- Halls Grid -->
+    <div class="halls-grid" *ngIf="!isLoading">
+      <div class="hall-card animate-fadeInUp" *ngFor="let hall of filteredHalls; let i = index" [style.animation-delay]="(i * 0.1) + 's'">
+        <!-- Image Gallery Carousel -->
+        <div class="hall-image-wrapper">
+          <img [src]="hall.hallImageUrl || 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600'"
+               [alt]="hall.hallName"
+               onerror="this.src='https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600'">
+          <div class="hall-badges">
+            <span class="badge-status" [class.available]="hall.hallAvailableStatus === 'Available'">
+              {{ hall.hallAvailableStatus }}
+            </span>
+            <span class="badge-theme" *ngIf="hall.theme">{{ hall.theme }}</span>
+          </div>
+        </div>
+
+        <div class="hall-body">
+          <h3 class="hall-name">{{ hall.hallName }}</h3>
+
+          <div class="hall-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>{{ hall.hallLocation }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-users"></i>
+              <span>{{ hall.capacity }} guests</span>
+            </div>
+          </div>
+
+          <p class="hall-description">{{ hall.description }}</p>
+
+          <div class="hall-footer">
+            <div class="hall-price">
+              <span class="price-label">Starting from</span>
+              <span class="price-value">₹{{ hall.price | number }}</span>
+              <span class="price-period">/day</span>
+            </div>
+            <button
+              class="btn-gold book-btn"
+              (click)="openBookingModal(hall)"
+              [disabled]="hall.hallAvailableStatus !== 'Available'">
+              <i class="fas fa-calendar-plus"></i> Book Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal-backdrop" *ngIf="showBookingModal" (click)="closeModal()">
+    <div class="modal-box booking-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <div>
+          <h3>Book {{ selectedHall?.hallName }}</h3>
+          <p>{{ selectedHall?.hallLocation }}</p>
+        </div>
+        <button class="close-btn" (click)="closeModal()"><i class="fas fa-times"></i></button>
+      </div>
+
+      <div class="alert alert-error" *ngIf="errorMsg"><i class="fas fa-exclamation-circle"></i> {{ errorMsg }}</div>
+      <div class="alert alert-success" *ngIf="successMsg"><i class="fas fa-check-circle"></i> {{ successMsg }}</div>
+
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">From Date *</label>
+            <input type="date" class="form-control" [(ngModel)]="booking.fromDate" (change)="calculatePrice()" [min]="today">
+          </div>
+          <div class="form-group">
+            <label class="form-label">To Date *</label>
+            <input type="date" class="form-control" [(ngModel)]="booking.toDate" (change)="calculatePrice()" [min]="booking.fromDate">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Number of Persons *</label>
+            <input type="number" class="form-control" [(ngModel)]="booking.noOfPersons" min="1" [max]="selectedHall?.capacity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Price</label>
+            <div class="price-display">₹{{ booking.totalPrice | number }}</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Delivery Address *</label>
+          <textarea class="form-control" [(ngModel)]="booking.address" placeholder="Enter your complete address" rows="2"></textarea>
+        </div>
+
+        <button class="btn-gold" style="width:100%" (click)="submitBooking()">
+          Confirm Booking <i class="fas fa-check"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

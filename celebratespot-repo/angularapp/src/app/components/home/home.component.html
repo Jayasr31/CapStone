@@ -1,0 +1,184 @@
+<div class="home-page">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-orb orb-3"></div>
+    </div>
+    <div class="hero-content animate-fadeInUp">
+      <div class="hero-badge">✨ Premium Party Hall Booking Platform</div>
+      <h1 class="hero-title">
+        Find Your Perfect<br>
+        <span class="title-gold">Celebration Venue</span>
+      </h1>
+      <p class="hero-subtitle">
+        Discover handpicked luxury party halls for weddings, birthdays, corporate events
+        and all your special occasions — all in one place.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-gold hero-btn"
+           [routerLink]="authService.getUserRole() === 'Admin' ? '/admin/view-party-hall' : '/customer/halls'">
+          Explore Halls <i class="fas fa-arrow-right"></i>
+        </a>
+        <a class="btn-outline-gold hero-btn" routerLink="/developer">Meet the Team</a>
+      </div>
+    </div>
+    <!-- Floating cards -->
+    <div class="hero-floating">
+      <div class="float-card float-card-1">
+        <span>🎂</span> Birthday Party
+      </div>
+      <div class="float-card float-card-2">
+        <span>💍</span> Wedding Hall
+      </div>
+      <div class="float-card float-card-3">
+        <span>🏢</span> Corporate Event
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card animate-fadeInUp" *ngFor="let stat of stats; let i = index" [style.animation-delay]="(i * 0.15) + 's'">
+          <div class="stat-icon">{{ stat.icon }}</div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content animate-fadeInUp">
+          <div class="section-badge">About CelebrateSpot</div>
+          <h2 class="section-title">Making Every Celebration Unforgettable</h2>
+          <div class="gold-divider"></div>
+          <p class="about-text">
+            CelebrateSpot is your ultimate online destination for discovering the perfect party hall
+            for your next memorable event. Whether you're planning a wedding, birthday bash, corporate
+            gathering, or any special occasion, we have the ideal venue to make your celebration
+            truly unforgettable.
+          </p>
+          <div class="about-features">
+            <div class="about-feature"><i class="fas fa-check-circle"></i> Verified premium venues</div>
+            <div class="about-feature"><i class="fas fa-check-circle"></i> Transparent pricing</div>
+            <div class="about-feature"><i class="fas fa-check-circle"></i> 24/7 customer support</div>
+            <div class="about-feature"><i class="fas fa-check-circle"></i> Instant booking confirmation</div>
+          </div>
+        </div>
+        <div class="about-visual animate-fadeInUp">
+          <div class="visual-grid">
+            <div class="visual-card vc-1">🎊<span>Events</span></div>
+            <div class="visual-card vc-2">💫<span>Magic</span></div>
+            <div class="visual-card vc-3">🥂<span>Luxury</span></div>
+            <div class="visual-card vc-4">🎵<span>Music</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Halls -->
+  <section class="featured-section" *ngIf="featuredHalls.length > 0">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Party Halls</h2>
+        <div class="gold-divider"></div>
+        <p class="section-subtitle">Handpicked venues for your perfect event</p>
+      </div>
+      <div class="halls-grid">
+        <div class="hall-card animate-fadeInUp" *ngFor="let hall of featuredHalls; let i = index" [style.animation-delay]="(i * 0.2) + 's'">
+          <div class="hall-image">
+            <img [src]="hall.hallImageUrl || 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400'" [alt]="hall.hallName" onerror="this.src='https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400'">
+            <div class="hall-overlay">
+              <span class="hall-status" [class.available]="hall.hallAvailableStatus === 'Available'">
+                {{ hall.hallAvailableStatus }}
+              </span>
+            </div>
+          </div>
+          <div class="hall-info">
+            <h3>{{ hall.hallName }}</h3>
+            <div class="hall-meta">
+              <span><i class="fas fa-map-marker-alt"></i> {{ hall.hallLocation }}</span>
+              <span><i class="fas fa-users"></i> {{ hall.capacity }} guests</span>
+            </div>
+            <div class="hall-price">₹{{ hall.price | number }}<span>/day</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="view-all-btn">
+        <a class="btn-outline-gold"
+           [routerLink]="authService.getUserRole() === 'Admin' ? '/admin/view-party-hall' : '/customer/halls'">
+          View All Party Halls <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="process-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How It Works</h2>
+        <div class="gold-divider"></div>
+        <p class="section-subtitle">Book your dream venue in 3 simple steps</p>
+      </div>
+      <div class="process-grid">
+        <div class="process-step" *ngFor="let step of [{icon:'🔍',num:'01',title:'Browse Halls',desc:'Explore our curated collection of premium party halls'},{icon:'📅',num:'02',title:'Book Your Date',desc:'Select your preferred dates and make a secure booking'},{icon:'🎉',num:'03',title:'Celebrate!',desc:'Arrive at your venue and create unforgettable memories'}]; let i = index">
+          <div class="step-num">{{ step.num }}</div>
+          <div class="step-icon">{{ step.icon }}</div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.desc }}</p>
+          <div class="step-connector" *ngIf="i < 2">→</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card" *ngFor="let t of [{name:'Priya Sharma',role:'Wedding Client',text:'CelebrateSpot made our wedding planning a breeze! The venue was absolutely stunning.',rating:5},{name:'Rahul Mehta',role:'Corporate Event',text:'Booked for our annual conference. The hall was perfect and the process was seamless.',rating:5},{name:'Anita Patel',role:'Birthday Party',text:'Found the most beautiful hall for my daughter\'s birthday. Highly recommended!',rating:4}]">
+          <div class="testimonial-rating">
+            <span class="stars">{{ '★'.repeat(t.rating) }}{{ '☆'.repeat(5-t.rating) }}</span>
+          </div>
+          <p class="testimonial-text">"{{ t.text }}"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">{{ t.name.charAt(0) }}</div>
+            <div>
+              <div class="author-name">{{ t.name }}</div>
+              <div class="author-role">{{ t.role }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-glow"></div>
+        <h2>Ready to Plan Your Perfect Event?</h2>
+        <p>Join over 10,000 happy customers who have celebrated with CelebrateSpot</p>
+        <a class="btn-gold cta-btn"
+           [routerLink]="authService.getUserRole() === 'Admin' ? '/admin/view-party-hall' : '/customer/halls'">
+          Start Exploring <i class="fas fa-rocket"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

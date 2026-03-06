@@ -1,0 +1,86 @@
+<div class="page-wrapper">
+  <div class="dev-hero">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-badge">👨‍💻 Meet the Team</div>
+    <h1 class="section-title">The Developers</h1>
+    <div class="gold-divider" style="margin: 1rem auto;"></div>
+    <p class="hero-desc">
+      CelebrateSpot was built with passion by a talented team of developers committed to
+      creating an exceptional party hall booking experience.
+    </p>
+  </div>
+
+  <section class="container">
+    <div class="project-overview">
+      <div class="overview-text">
+        <h2>About the Project</h2>
+        <p>
+          CelebrateSpot is a full-stack web application built for discovering and booking premium party halls.
+          The platform serves both administrators and customers with dedicated dashboards, real-time booking
+          management, and a review system.
+        </p>
+        <div class="project-highlights">
+          <div class="highlight"><i class="fas fa-check-circle"></i> JWT-secured REST API with role-based access</div>
+          <div class="highlight"><i class="fas fa-check-circle"></i> Real-time booking management system</div>
+          <div class="highlight"><i class="fas fa-check-circle"></i> Admin-key protected admin registration</div>
+          <div class="highlight"><i class="fas fa-check-circle"></i> Responsive Angular SPA with Auth Guards</div>
+        </div>
+        <div class="admin-key-box">
+          <i class="fas fa-key"></i>
+          <div>
+            <strong>Admin Registration Key</strong>
+            <code>ADMIN_SECRET_2024</code>
+          </div>
+        </div>
+      </div>
+      <div class="tech-stack">
+        <h3>Technology Stack</h3>
+        <div class="tech-grid">
+          <div class="tech-item" *ngFor="let tech of techStack">
+            <span class="tech-icon">{{ tech.icon }}</span>
+            <div>
+              <div class="tech-name">{{ tech.name }}</div>
+              <div class="tech-category">{{ tech.category }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container team-section">
+    <div class="section-header" style="text-align:center; margin-bottom:3rem;">
+      <h2 class="section-title">Our Team</h2>
+      <div class="gold-divider" style="margin: 0.75rem auto 0;"></div>
+    </div>
+    <div class="dev-grid">
+      <div class="dev-card animate-fadeInUp" *ngFor="let dev of developers; let i = index" [style.animation-delay]="(i * 0.15) + 's'">
+        <div class="dev-avatar-wrapper">
+          <div class="dev-avatar">{{ dev.emoji }}</div>
+        </div>
+        <div class="dev-info">
+          <h3>{{ dev.name }}</h3>
+          <div class="dev-role">{{ dev.role }}</div>
+          <p class="dev-desc">{{ dev.description }}</p>
+          <div class="dev-skills">
+            <span class="skill-tag" *ngFor="let s of dev.skills">{{ s }}</span>
+          </div>
+          <div class="dev-contact">
+            <a [href]="'mailto:' + dev.email" class="contact-link"><i class="fas fa-envelope"></i></a>
+            <a [href]="dev.linkedin" class="contact-link"><i class="fab fa-linkedin"></i></a>
+            <a [href]="dev.github" class="contact-link"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-dev container">
+    <div class="cta-box">
+      <h2>Ready to Celebrate?</h2>
+      <p>Experience the full power of CelebrateSpot — book your perfect venue today.</p>
+      <a class="btn-gold cta-btn" routerLink="/login">Get Started <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+</div>
