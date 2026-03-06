@@ -5,9 +5,7 @@ using dotnetapp.Exceptions;
 
 namespace dotnetapp.Services
 {
-    /// <summary>
-    /// Service for party hall related database operations
-    /// </summary>
+
     public class PartyHallService
     {
         private readonly ApplicationDbContext _context;
@@ -17,13 +15,11 @@ namespace dotnetapp.Services
             _context = context;
         }
 
-        /// <summary>Retrieves all party halls from the database</summary>
+
         public async Task<IEnumerable<PartyHall>> GetAllPartyHallsAsync()
         {
             return await _context.PartyHalls.ToListAsync();
         }
-
-        /// <summary>Adds a new party hall - throws if name already exists</summary>
         public async Task<PartyHall> AddPartyHallAsync(PartyHall partyHall)
         {
             // Check for duplicate hall name
@@ -38,7 +34,7 @@ namespace dotnetapp.Services
             return partyHall;
         }
 
-        /// <summary>Updates an existing party hall by ID</summary>
+
         public async Task<PartyHall?> UpdatePartyHallAsync(long id, PartyHall partyHall)
         {
             var existing = await _context.PartyHalls.FindAsync(id);
@@ -58,7 +54,7 @@ namespace dotnetapp.Services
             return existing;
         }
 
-        /// <summary>Deletes a party hall by ID</summary>
+
         public async Task<PartyHall?> DeletePartyHallAsync(long id)
         {
             var partyHall = await _context.PartyHalls.FindAsync(id);
@@ -69,7 +65,7 @@ namespace dotnetapp.Services
             return partyHall;
         }
 
-        /// <summary>Retrieves a party hall by its ID</summary>
+
         public async Task<PartyHall?> GetPartyHallByIdAsync(long id)
         {
             return await _context.PartyHalls.FindAsync(id);

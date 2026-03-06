@@ -21,6 +21,8 @@ export class CustomerViewPartyHallComponent implements OnInit {
   isLoading = true;
   currentImageIndex = 0;
 
+  today = new Date().toISOString().split('T')[0];
+
   // Filters
   searchQuery = '';
   maxPrice = 200000;

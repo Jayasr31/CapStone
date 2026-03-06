@@ -4,9 +4,7 @@ using dotnetapp.Models;
 
 namespace dotnetapp.Services
 {
-    /// <summary>
-    /// Service for booking-related database operations
-    /// </summary>
+
     public class BookingService
     {
         private readonly ApplicationDbContext _context;
@@ -16,13 +14,13 @@ namespace dotnetapp.Services
             _context = context;
         }
 
-        /// <summary>Retrieves a booking by its ID</summary>
+  
         public async Task<Booking?> GetBookingByIdAsync(long id)
         {
             return await _context.Bookings.FindAsync(id);
         }
 
-        /// <summary>Retrieves all bookings for a specific user with related data</summary>
+
         public async Task<IEnumerable<Booking>> GetBookingsByUserIdAsync(long userId)
         {
             return await _context.Bookings
@@ -32,7 +30,7 @@ namespace dotnetapp.Services
                 .ToListAsync();
         }
 
-        /// <summary>Retrieves all bookings with related party hall and user data</summary>
+
         public async Task<IEnumerable<Booking>> GetAllBookingsAsync()
         {
             return await _context.Bookings
@@ -41,7 +39,7 @@ namespace dotnetapp.Services
                 .ToListAsync();
         }
 
-        /// <summary>Adds a new booking to the database</summary>
+
         public async Task<Booking> AddBookingAsync(Booking booking)
         {
             _context.Bookings.Add(booking);
@@ -49,7 +47,7 @@ namespace dotnetapp.Services
             return booking;
         }
 
-        /// <summary>Deletes a booking by its ID</summary>
+
         public async Task DeleteBookingAsync(long id)
         {
             var booking = await _context.Bookings.FindAsync(id);
@@ -60,7 +58,7 @@ namespace dotnetapp.Services
             }
         }
 
-        /// <summary>Updates the status of an existing booking</summary>
+
         public async Task UpdateBookingStatusAsync(long id, string newStatus)
         {
             var booking = await _context.Bookings.FindAsync(id);

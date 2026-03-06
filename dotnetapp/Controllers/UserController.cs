@@ -17,14 +17,13 @@ namespace dotnetapp.Controllers
             _configuration = configuration;
         }
 
-        /// <summary>Register a new user (Admin or Customer)</summary>
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
             try
             {
-                // If registering as Admin, validate the secret key
-                // The admin secret key header must be passed: X-Admin-Key: ADMIN_SECRET_2024
+
                 if (user.UserRole == UserRoles.Admin)
                 {
                     var adminKey = Request.Headers["X-Admin-Key"].ToString();
@@ -48,7 +47,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Authenticate user and return JWT token</summary>
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {

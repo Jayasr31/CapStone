@@ -8,9 +8,7 @@ using dotnetapp.Models;
 
 namespace dotnetapp.Services
 {
-    /// <summary>
-    /// Service for user operations and JWT token generation
-    /// </summary>
+
     public class UserService
     {
         private readonly ApplicationDbContext _context;
@@ -22,7 +20,7 @@ namespace dotnetapp.Services
             _configuration = configuration;
         }
 
-        /// <summary>Registers a new user in the database</summary>
+
         public async Task<User> RegisterUserAsync(User user)
         {
             _context.Users.Add(user);
@@ -30,7 +28,7 @@ namespace dotnetapp.Services
             return user;
         }
 
-        /// <summary>Generates a JWT token for the authenticated user</summary>
+
         public async Task<string> GenerateJwtTokenAsync(User user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]!));
@@ -56,19 +54,18 @@ namespace dotnetapp.Services
             return await Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
-        /// <summary>Retrieves user by email address</summary>
+
         public async Task<User?> GetUserByEmailAsync(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        /// <summary>Retrieves all users from the database</summary>
         public async Task<List<User>> GetAllUsersAsync()
         {
             return await _context.Users.ToListAsync();
         }
 
-        /// <summary>Retrieves a user by their ID</summary>
+
         public async Task<User?> GetUserByIdAsync(long userId)
         {
             return await _context.Users.FindAsync(userId);

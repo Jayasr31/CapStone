@@ -18,7 +18,7 @@ namespace dotnetapp.Controllers
             _partyHallService = partyHallService;
         }
 
-        /// <summary>Get all party halls</summary>
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PartyHall>>> Get()
         {
@@ -33,7 +33,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Get a party hall by ID</summary>
+        
         [HttpGet("{PartyHallId}")]
         public async Task<ActionResult<PartyHall>> Get(long PartyHallId)
         {
@@ -50,7 +50,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Add a new party hall</summary>
+        /// <>Add a new party hall</>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PartyHall partyHall)
         {
@@ -59,7 +59,7 @@ namespace dotnetapp.Controllers
                 if (partyHall == null)
                     return BadRequest(new { message = "Party hall data is null." });
 
-                // Avoid navigation property conflicts
+              
                 partyHall.Bookings = null;
 
                 var added = await _partyHallService.AddPartyHallAsync(partyHall);
@@ -75,7 +75,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Update an existing party hall</summary>
+     
         [HttpPut("{PartyHallId}")]
         public async Task<IActionResult> Put(long PartyHallId, [FromBody] PartyHall partyHall)
         {
@@ -96,7 +96,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Delete a party hall by ID</summary>
+   
         [HttpDelete("{PartyHallId}")]
         public async Task<IActionResult> Delete(long PartyHallId)
         {

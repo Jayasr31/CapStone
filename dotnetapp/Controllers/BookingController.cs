@@ -19,7 +19,7 @@ namespace dotnetapp.Controllers
             _userService = userService;
         }
 
-        /// <summary>Get a booking by its ID</summary>
+
         [HttpGet("booking/{bookingId}")]
         public async Task<IActionResult> GetBooking(long bookingId)
         {
@@ -36,7 +36,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Get all bookings for a specific user</summary>
+
         [HttpGet("user/{UserId}")]
         public async Task<IActionResult> GetBookingsByUserId(long UserId)
         {
@@ -51,7 +51,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Get all bookings</summary>
+
         [HttpGet("booking")]
         public async Task<IActionResult> GetAllBookings()
         {
@@ -66,7 +66,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Add a new booking</summary>
+
         [HttpPost("booking")]
         public async Task<IActionResult> AddBooking([FromBody] Booking booking)
         {
@@ -75,7 +75,7 @@ namespace dotnetapp.Controllers
                 if (booking == null)
                     return BadRequest(new { message = "Booking data is null." });
 
-                // Avoid navigation property conflicts
+
                 booking.User = null;
 
                 var addedBooking = await _bookingService.AddBookingAsync(booking);
@@ -92,7 +92,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Delete a booking by ID</summary>
+
         [HttpDelete("booking/{bookingId}")]
         public async Task<IActionResult> DeleteBooking(long bookingId)
         {
@@ -107,7 +107,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Update a booking's status</summary>
+
         [HttpPut("booking/{bookingId}")]
         public async Task<IActionResult> UpdateBooking(long bookingId, [FromBody] Booking updatedBooking)
         {

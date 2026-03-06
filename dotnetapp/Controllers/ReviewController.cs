@@ -19,7 +19,7 @@ namespace dotnetapp.Controllers
             _userService = userService;
         }
 
-        /// <summary>Get all reviews (Admin access)</summary>
+  
         [HttpGet]
         public async Task<IActionResult> GetAllReviews()
         {
@@ -34,7 +34,6 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Get reviews by user ID</summary>
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetReviewsByUserId(long userId)
         {
@@ -49,7 +48,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        /// <summary>Add a new review (Customer access)</summary>
+
         [HttpPost]
         public async Task<IActionResult> AddReview([FromBody] Review review)
         {
@@ -58,7 +57,7 @@ namespace dotnetapp.Controllers
                 if (review == null)
                     return BadRequest(new { message = "Review data is null." });
 
-                // If user object provided but userId doesn't match, ignore user object
+
                 if (review.User != null && review.User.UserId != review.UserId)
                     review.User = null;
 
